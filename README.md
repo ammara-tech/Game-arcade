@@ -1,6 +1,7 @@
 Neon Arcade — a 3D cabinet-select hub containing 4 games to choose from.
 
-These include: 
+These include:
+
 1.Tic-Tac-Toe Concepts: 2D arrays, turn-based logic, win-condition checking.
 -Gameplay: Two players take turns marking spaces in a 3x3 grid.
 
