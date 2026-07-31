@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCADE // Select Your Machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="crt-overlay"></div>
+<div class="scanline"></div>
+
+<!-- ================= HUD ================= -->
+<header class="hud">
+  <div class="hud-brand">
+    <span class="hud-brand-glyph">◆</span>
+    <span class="hud-brand-text">NEON ARCADE</span>
+  </div>
+  <div class="hud-stats">
+    <div class="hud-stat">
+      <span class="hud-label">Score</span>
+      <span class="hud-value" id="hudScore">0</span>
+    </div>
+    <div class="hud-stat">
+      <span class="hud-label">Rank</span>
+      <span class="hud-value" id="hudRank">Rookie</span>
+    </div>
+    <button class="hud-btn" id="achBtn">🏆 <span id="achCount">0</span>/<span id="achTotal">12</span></button>
+  </div>
+</header>
+
+<!-- ================= CABINET SELECT (3D carousel) ================= -->
+<main class="floor" id="floorScreen">
+  <div class="floor-title">
+    <h1>INSERT COIN</h1>
+    <p>Choose a machine. Turn the room. Step up to play.</p>
+  </div>
+
+  <div class="carousel-wrap">
+    <button class="turn-btn turn-left" id="turnLeft" aria-label="Rotate left">‹</button>
+
+    <div class="carousel-stage">
+      <div class="carousel" id="carousel">
+        <!-- Cabinet 1 -->
+        <div class="cabinet" data-game="ttt" style="--i:0">
+          <div class="cabinet-body">
+            <div class="marquee mint">TIC · TAC · TOE</div>
+            <div class="screen-window">
+              <div class="mini-board">
+                <span>✕</span><span>○</span><span></span>
+                <span></span><span>✕</span><span>○</span>
+                <span>○</span><span></span><span>✕</span>
+              </div>
+            </div>
+            <div class="cabinet-plate">
+              <span class="plate-label">Grid Tactics</span>
+              <span class="plate-diff" id="diffLabel-ttt">Normal</span>
+            </div>
+            <div class="coin-slot"></div>
+          </div>
+          <div class="cabinet-shadow"></div>
+        </div>
+
+        <!-- Cabinet 2 -->
+        <div class="cabinet" data-game="rps" style="--i:1">
+          <div class="cabinet-body">
+            <div class="marquee magenta">ROCK · PAPER · SCISSORS</div>
+            <div class="screen-window rps-screen">
+              <span class="emoji-float e1">✊</span>
+              <span class="emoji-float e2">✋</span>
+              <span class="emoji-float e3">✌️</span>
+            </div>
+            <div class="cabinet-plate">
+              <span class="plate-label">Duel vs CPU</span>
+              <span class="plate-diff" id="diffLabel-rps">Normal</span>
+            </div>
+            <div class="coin-slot"></div>
+          </div>
+          <div class="cabinet-shadow"></div>
+        </div>
+
+        <!-- Cabinet 3 -->
+        <div class="cabinet" data-game="memory" style="--i:2">
+          <div class="cabinet-body">
+            <div class="marquee amber">MEMORY MATRIX</div>
+            <div class="screen-window">
+              <div class="mini-board mini-cards">
+                <span class="mc mc-on">★</span><span class="mc"></span><span class="mc"></span>
+                <span class="mc"></span><span class="mc mc-on">★</span><span class="mc"></span>
+              </div>
+            </div>
+            <div class="cabinet-plate">
+              <span class="plate-label">Flip & Match</span>
+              <span class="plate-diff" id="diffLabel-memory">Normal</span>
+            </div>
+            <div class="coin-slot"></div>
+          </div>
+          <div class="cabinet-shadow"></div>
+        </div>
+
+        <!-- Cabinet 4 -->
+        <div class="cabinet" data-game="clicker" style="--i:3">
+          <div class="cabinet-body">
+            <div class="marquee mint">IDLE CORE</div>
+            <div class="screen-window">
+              <div class="mini-core">⬡</div>
+            </div>
+            <div class="cabinet-plate">
+              <span class="plate-label">Click & Automate</span>
+              <span class="plate-diff">— no difficulty —</span>
+            </div>
+            <div class="coin-slot"></div>
+          </div>
+          <div class="cabinet-shadow"></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="turn-btn turn-right" id="turnRight" aria-label="Rotate right">›</button>
+  </div>
+
+  <div class="floor-footer">
+    <div class="diff-picker" id="diffPicker">
+      <span class="diff-picker-label">Difficulty</span>
+      <button class="diff-opt" data-diff="easy">Easy</button>
+      <button class="diff-opt active" data-diff="normal">Normal</button>
+      <button class="diff-opt" data-diff="hard">Hard</button>
+    </div>
+    <button class="play-btn" id="playBtn">PLAY <span id="playGameName">TIC-TAC-TOE</span> ▶</button>
+  </div>
+</main>
+
+<!-- ================= GAME SCREENS ================= -->
+<section class="game-screen" id="screen-ttt">
+  <div class="game-panel">
+    <button class="back-btn">‹ Floor</button>
+    <h2 class="game-title mint">Tic · Tac · Toe</h2>
+    <div class="game-meta">
+      <span>Turn: <b id="tttTurn">✕</b></span>
+      <span>Difficulty: <b id="tttDiffShow">Normal</b></span>
+      <span>Round Score: <b id="tttScore">0</b></span>
+    </div>
+    <div class="ttt-board" id="tttBoard"></div>
+    <p class="game-status" id="tttStatus">Your move, X.</p>
+    <button class="reset-btn" id="tttReset">Reset Round</button>
+  </div>
+</section>
+
+<section class="game-screen" id="screen-rps">
+  <div class="game-panel">
+    <button class="back-btn">‹ Floor</button>
+    <h2 class="game-title magenta">Rock · Paper · Scissors</h2>
+    <div class="game-meta">
+      <span>Difficulty: <b id="rpsDiffShow">Normal</b></span>
+      <span>Streak: <b id="rpsStreak">0</b></span>
+      <span>W-L-D: <b id="rpsRecord">0-0-0</b></span>
+    </div>
+    <div class="rps-arena">
+      <div class="rps-side">
+        <span class="rps-tag">You</span>
+        <div class="rps-hand" id="rpsPlayerHand">❔</div>
+      </div>
+      <div class="rps-vs">VS</div>
+      <div class="rps-side">
+        <span class="rps-tag">CPU</span>
+        <div class="rps-hand" id="rpsCpuHand">❔</div>
+      </div>
+    </div>
+    <p class="game-status" id="rpsStatus">Make your move.</p>
+    <div class="rps-choices">
+      <button class="rps-choice" data-choice="rock">✊<span>Rock</span></button>
+      <button class="rps-choice" data-choice="paper">✋<span>Paper</span></button>
+      <button class="rps-choice" data-choice="scissors">✌️<span>Scissors</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="game-screen" id="screen-memory">
+  <div class="game-panel">
+    <button class="back-btn">‹ Floor</button>
+    <h2 class="game-title amber">Memory Matrix</h2>
+    <div class="game-meta">
+      <span>Difficulty: <b id="memDiffShow">Normal</b></span>
+      <span>Moves: <b id="memMoves">0</b></span>
+      <span>Pairs: <b id="memPairs">0</b>/<b id="memPairsTotal">8</b></span>
+      <span>Timer: <b id="memTimer">0s</b></span>
+    </div>
+    <div class="mem-grid" id="memGrid"></div>
+    <p class="game-status" id="memStatus">Flip two cards to find a pair.</p>
+    <button class="reset-btn" id="memReset">Shuffle & Restart</button>
+  </div>
+</section>
+
+<section class="game-screen" id="screen-clicker">
+  <div class="game-panel wide">
+    <button class="back-btn">‹ Floor</button>
+    <h2 class="game-title mint">Idle Core</h2>
+    <div class="clicker-layout">
+      <div class="clicker-main">
+        <div class="core-count"><span id="clickerPoints">0</span> <small>energy</small></div>
+        <div class="core-rate">+<span id="clickerRate">0</span>/sec</div>
+        <button class="core-btn" id="coreBtn">
+          <span class="core-glyph">⬡</span>
+          <span class="core-hint">TAP</span>
+        </button>
+      </div>
+      <div class="clicker-shop">
+        <h3>Upgrades</h3>
+        <div class="shop-list" id="shopList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ACHIEVEMENTS MODAL ================= -->
+<div class="modal-backdrop" id="achModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>🏆 Achievements</h2>
+      <button class="modal-close" id="achClose">✕</button>
+    </div>
+    <div class="ach-grid" id="achGrid"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> Ammara Badat 2026. Built with HTML, CSS &amp; JavaScript.</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
