@@ -6,13 +6,16 @@ These include:
 
 -Gameplay: Two players take turns marking spaces in a 3x3 grid.
 
+
 2.Rock, Paper, Scissors Concepts: Random number generation (Math.random()), conditional logic (if/else).
 
 -Gameplay: User plays against a computer opponent with randomized choices.
+
   
 3.Digital Memory Card Gam eConcepts: Array shuffling (Fisher-Yates algorithm), data attributes, CSS grid.
 
 -Gameplay: Players flip two cards at a time to find matching pairs.
+
   
 4.Clicker / Idle Game Concepts: State management, intervals (setInterval), automatic increments.
 
