@@ -135,8 +135,8 @@ function updateCarousel(){
 
 document.getElementById('turnRight').addEventListener('click', () => { carouselIndex++; updateCarousel(); });
 document.getElementById('turnLeft').addEventListener('click', () => { carouselIndex--; updateCarousel(); });
-document.querySelectorAll('.cabinet').forEach((cab, idx) => {
-  cab.addEventListener('click', () => { carouselIndex = idx; updateCarousel(); });
+document.querySelectorAll('.cabinet').forEach(cab => {
+  cab.addEventListener('click', () => document.getElementById('playBtn').click());
 });
 document.querySelectorAll('.diff-opt').forEach(opt => {
   opt.addEventListener('click', () => {
@@ -575,3 +575,4 @@ updateClickerUI();
 function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
 
 updateRank();
+
